@@ -23,20 +23,24 @@ class AssignAdminRoleSeeder extends Seeder
             'id' => 1,
             'name' => 'admin',
             'email' => 'admin@admin.com',
+            'email_verified_at' => now(),
             'password' => '$2y$10$uQ/WIjMbfSOsAjlg0xj1E.MxED2Lef0S50uXuKEsPRTYLszqczdbG',
             'date_of_birth' => '1990-01-01',
+            'gender' => 'male',
+            'description' => 'مالك نادي سوبر جيم',
             'profile_img' => 'admin.png',
-            'email_verified_at' => now(),
 
         ]);
         DB::table('users')->insert([
             'id' => 2,
             'name' => 'adminFemale',
             'email' => 'adminFemale@admin.com',
+            'email_verified_at' => now(),
             'password' => '$2y$10$uQ/WIjMbfSOsAjlg0xj1E.MxED2Lef0S50uXuKEsPRTYLszqczdbG',
             'date_of_birth' => '1995-10-11',
+            'gender' => 'female',
+            'description' => 'المالكة لامور النساء في نادي سوبر جيم',
             'profile_img' => 'admin.png',
-            'email_verified_at' => now(),
 
         ]);
 
