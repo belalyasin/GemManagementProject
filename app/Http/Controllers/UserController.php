@@ -40,9 +40,9 @@ class UserController extends Controller
                 $coach = auth('coach')->user();
                 $trainingSessions = $coach->trainingSessions;
                 $attendances = Attendance::whereIn('training_session_id', $trainingSessions->pluck('id'))->get();
-                $usersInSessions = $attendances->filter(function ($attendance) use ($gender) {
-                    return $attendance->users->gender === $gender;
-                })->pluck('users')->unique();
+                $usersInSessions = $trainingSessions->pluck('users')->collapse()->filter(function ($user) use ($gender) {
+                    return $user->gender === $gender;
+                })->unique();
                 $users = $usersInSessions;
             }
             return view('users.index', data: [

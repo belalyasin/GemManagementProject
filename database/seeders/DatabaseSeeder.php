@@ -30,22 +30,17 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RolePermissionSeeder::class,
             AssignAdminRoleSeeder::class,
+            BlogSeeder::class,
+            // UserSeeder::class,
 
-            CitySeeder::class,
-            GymSeeder::class,
+            // PackageSeeder::class,
+            // BuyPackageSeeder::class,
 
-            CityManagerSeeder::class,
-            GymManagerSeeder::class,
-            UserSeeder::class,
+            // CoachSeeder::class,
+            // TrainingSessionSeeder::class,
+            // CoachSessionSeeder::class,
 
-            PackageSeeder::class,
-            BuyPackageSeeder::class,
-
-            CoachSeeder::class,
-            TrainingSessionSeeder::class,
-            CoachSessionSeeder::class,
-
-            AttendanceSeeder::class
+            // AttendanceSeeder::class
         ]);
     }
 }

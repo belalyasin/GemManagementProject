@@ -84,10 +84,8 @@
                                         <td>{{ $user->description ? $user->description : '-' }}</td>
                                         <td>
                                             <ul style="list-style: none;" class="list-group list-group-flush">
-                                                @foreach ($attendances as $attendance)
-                                                    @if ($attendance->users->id === $user->id)
-                                                        <li> {{ $attendance->trainingSessions->name }}</li><br>
-                                                    @endif
+                                                @foreach ($user->trainingSessions as $session)
+                                                    <li>{{ $session->name }}</li><br>
                                                 @endforeach
                                             </ul>
                                         </td>

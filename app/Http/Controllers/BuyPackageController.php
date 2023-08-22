@@ -54,7 +54,14 @@ class BuyPackageController extends Controller
 
     public function create()
     {
+        $gender = auth()->user()->gender;
         $packages = DB::table('training_packages')->get();
+        // $sessions = DB::table('training_sessions')->whereHas('coaches', function ($query) use ($gender) {
+        //     $query->where('gender', $gender);
+        // })->get();
+        $sessions = TrainingSession::whereHas('coaches', function ($query) use ($gender) {
+            $query->where('gender', $gender);
+        })->get();
         $users = User::Role('client')->get();
         $roleAdmin = Auth::user()->hasRole('admin');
         $roleClient = Auth::user()->hasRole('client');
@@ -69,6 +76,7 @@ class BuyPackageController extends Controller
             }
             return view('payment.create', data: [
                 'packages' => $packages,
+                'sessions' => $sessions,
                 'users' => $users,
             ]);
         } else {

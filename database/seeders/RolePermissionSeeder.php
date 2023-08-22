@@ -21,26 +21,18 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         $roleAdmin = Role::find(1);
-        $allPermissions=Permission::all();
+        $allPermissions = Permission::all();
 
         $roleAdmin->givePermissionTo($allPermissions);
 
 
-        $roleCityManager = Role::find(2);
-        $roleCityManager->givePermissionTo(['create gym','create gym manager','create coach','create session',
+        $roleCoach = Role::find(2);
+        $roleCoach->givePermissionTo([
+            'update coach', 'update session',
+            'delete session',
+            'read user', 'read coach', 'read package',
 
-        'update gym manager','update gym','update coach','update session',
-
-        'delete gym manager','delete gym','delete coach','delete session',
-
-        'read gym manager','read gym','read coach','read package',
-
-        'read session','assign coach']);
-
-
-        $roleGymManager = Role::find(3);
-        $roleGymManager->givePermissionTo(['create session','update session','delete session',
-        'read session', 'read coach','read package', 'assign coach']);
-
+            'read session', 'assign coach'
+        ]);
     }
 }

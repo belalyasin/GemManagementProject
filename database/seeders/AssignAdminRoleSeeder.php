@@ -29,12 +29,27 @@ class AssignAdminRoleSeeder extends Seeder
             'email_verified_at' => now(),
 
         ]);
+        DB::table('users')->insert([
+            'id' => 2,
+            'name' => 'adminFemale',
+            'email' => 'adminFemale@admin.com',
+            'password' => '$2y$10$uQ/WIjMbfSOsAjlg0xj1E.MxED2Lef0S50uXuKEsPRTYLszqczdbG',
+            'date_of_birth' => '1995-10-11',
+            'profile_img' => 'admin.png',
+            'email_verified_at' => now(),
+
+        ]);
 
         // Assign Role --> Admin
         DB::table('model_has_roles')->insert([
             'role_id' => 1,
             'model_type' => 'App\Models\User',
             'model_id' => 1,
+        ]);
+        DB::table('model_has_roles')->insert([
+            'role_id' => 1,
+            'model_type' => 'App\Models\User',
+            'model_id' => 2,
         ]);
     }
 }
