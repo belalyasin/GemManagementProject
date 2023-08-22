@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
 
-            $table->id();
+            $table->id()->autoIncrement();
 
             $table->string('name');
             $table->string('email')->unique();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('description');
 
             $table->date('date_of_birth');
-            $table->enum('gender',['male','female']);
+            $table->enum('gender', ['male', 'female']);
             $table->string('profile_img')->nullable();
 
             $table->timestamp('banned_at')->nullable(); // for ban user
