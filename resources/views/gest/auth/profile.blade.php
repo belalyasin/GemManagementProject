@@ -169,8 +169,7 @@
                             <div class="col-12 mt-4  ">
                                 <label for="" class="form-label fs-25 text-light opacity-75">الاسم</label>
                                 <input type="text" class="form-control bg-primary-op fs-25 py-3 ps-4 border-0 text-muted"
-                                    name="name" placeholder="{{ $user->name }}" value="{{ $user->name }}"
-                                    aria-label="F_Name">
+                                    name="name" placeholder="الاسم" value="{{ $user->name }}" aria-label="F_Name">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -180,8 +179,7 @@
                             <div class="col-12 mt-4">
                                 <label for="" class="form-label fs-25 text-light opacity-75">البريد الإلكتروني</label>
                                 <input type="email" class="form-control bg-primary-op text-muted fs-25 py-3 ps-4 border-0"
-                                    id="email" name="email" placeholder="{{ $user->email }}"
-                                    value="{{ $user->email }}">
+                                    id="email" name="email" placeholder="البريد لاإلكتروني" value="{{ $user->email }}">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -194,6 +192,11 @@
                                     name="profile_img" id="profile_img" aria-describedby="fileHelpId">
                                 {{--                                <small id="fileHelpId" class="form-text text-muted">png or jpg</small> --}}
                             </div>
+                            @error('profile_img')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="col-12 mt-4">
                                 <label for="" class="form-label fs-25 text-light opacity-75">يوم ميلادي</label>
                                 <input type="date" name="date_of_birth"
@@ -211,9 +214,9 @@
                                 </button>
                             </div>
                             <!-- <div class="col-12 mt-4">
-                                  <label for="" class="form-label fs-25 text-light opacity-75">password</label>
-                                  <input type="password" class="form-control bggg fs-25 py-3 ps-4 border-0" id="" placeholder=".................">
-                                </div> -->
+                                          <label for="" class="form-label fs-25 text-light opacity-75">password</label>
+                                          <input type="password" class="form-control bggg fs-25 py-3 ps-4 border-0" id="" placeholder=".................">
+                                        </div> -->
                         </form>
                         </form>
                         <form class="row px-0 px-lg-5 px-sm-0 px-md-0 fw-light"

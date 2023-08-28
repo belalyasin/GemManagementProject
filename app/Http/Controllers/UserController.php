@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,7 +72,6 @@ class UserController extends Controller
         return view('users.show', ['user' => $user]);
     }
 
-    // public function store(StoreUserRequest $request)
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -81,7 +81,9 @@ class UserController extends Controller
             'confirmPassword' => 'required|same:passwd',
             'date_of_birth' => 'required|date',
         ]);
-        // dd($request);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator->errors());
+        }
         $img = $request->file('profile_img');
 
         if ($img != null) :
@@ -124,7 +126,7 @@ class UserController extends Controller
             'date_of_birth' => 'required|date',
         ]);
         if ($validator->fails()) {
-            return response()->json(["message" => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+            return Redirect::back()->withErrors($validator->errors());
         }
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -166,17 +168,17 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        //        dd($request);
         $userID = $request->id;
 
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(), [
             'name' => 'required|max:50|min:3',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userID],
             'date_of_birth' => 'required|date',
         ]);
-
+        if ($validated->fails()) {
+            return Redirect::back()->withErrors($validated->errors());
+        }
         $oldimg = $request->oldimg;
-        //        dd($request);
 
         if ($request->hasFile('profile_img')) {
             $request->validate([
@@ -185,7 +187,6 @@ class UserController extends Controller
 
             $imageName = time() . '.' . $request->file('profile_img')->extension();
             $request->file('profile_img')->move(public_path('imgs//' . 'users'), $imageName);
-            //            dd($imageName);
             DB::table('users')->where('id', '=', $userID)->update(['profile_img' => $imageName]);
 
             if ($oldimg != "Client.png") {
@@ -197,9 +198,9 @@ class UserController extends Controller
         }
 
         User::find($userID)->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'date_of_birth' => $validated['date_of_birth'],
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'date_of_birth' => $request->input('date_of_birth'),
             //            'profile_img' => $imageName
         ]);
         return redirect()->route('dashboard');
